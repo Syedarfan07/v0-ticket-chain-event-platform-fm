@@ -12,6 +12,7 @@ export interface Event {
   sold: number
   organizer: string
   status: "active" | "cancelled" | "sold-out"
+  liveStatus: "upcoming" | "live" | "ended"
 }
 
 export interface Ticket {
@@ -46,6 +47,7 @@ export const MOCK_EVENTS: Event[] = [
     sold: 342,
     organizer: "0x1234...abcd",
     status: "active",
+    liveStatus: "live",
   },
   {
     id: "evt-002",
@@ -182,4 +184,104 @@ export const CATEGORIES = [
   "Art",
   "Workshop",
   "Gaming",
+]
+
+// --- Verifier & Scan types ---
+
+export interface Verifier {
+  id: string
+  name: string
+  email: string
+  assignedEventIds: string[]
+}
+
+export interface ScanRecord {
+  id: string
+  ticketId: string
+  eventId: string
+  attendeeName: string
+  tokenId: string
+  timestamp: string
+  status: "valid" | "invalid" | "already-used"
+}
+
+export const MOCK_VERIFIERS: Verifier[] = [
+  {
+    id: "vrf-001",
+    name: "Alex Rivera",
+    email: "alex@ticketchain.io",
+    assignedEventIds: ["evt-001", "evt-004", "evt-006"],
+  },
+  {
+    id: "vrf-002",
+    name: "Sam Chen",
+    email: "sam@ticketchain.io",
+    assignedEventIds: ["evt-002", "evt-003"],
+  },
+]
+
+export const MOCK_SCAN_RECORDS: ScanRecord[] = [
+  {
+    id: "scan-001",
+    ticketId: "tkt-001",
+    eventId: "evt-001",
+    attendeeName: "Jordan Blake",
+    tokenId: "#4521",
+    timestamp: "2026-04-15T09:12:00Z",
+    status: "valid",
+  },
+  {
+    id: "scan-002",
+    ticketId: "tkt-010",
+    eventId: "evt-001",
+    attendeeName: "Casey Taylor",
+    tokenId: "#4530",
+    timestamp: "2026-04-15T09:14:30Z",
+    status: "valid",
+  },
+  {
+    id: "scan-003",
+    ticketId: "tkt-011",
+    eventId: "evt-001",
+    attendeeName: "Morgan Lee",
+    tokenId: "#4531",
+    timestamp: "2026-04-15T09:15:45Z",
+    status: "already-used",
+  },
+  {
+    id: "scan-004",
+    ticketId: "tkt-fake",
+    eventId: "evt-001",
+    attendeeName: "Unknown",
+    tokenId: "#0000",
+    timestamp: "2026-04-15T09:18:00Z",
+    status: "invalid",
+  },
+  {
+    id: "scan-005",
+    ticketId: "tkt-020",
+    eventId: "evt-004",
+    attendeeName: "Riley Quinn",
+    tokenId: "#1090",
+    timestamp: "2026-07-22T20:05:00Z",
+    status: "valid",
+  },
+  {
+    id: "scan-006",
+    ticketId: "tkt-021",
+    eventId: "evt-004",
+    attendeeName: "Avery Kim",
+    tokenId: "#1091",
+    timestamp: "2026-07-22T20:08:20Z",
+    status: "valid",
+  },
+  {
+    id: "scan-007",
+    ticketId: "tkt-030",
+    eventId: "evt-006",
+    attendeeName: "Drew Patel",
+    tokenId: "#2001",
+    timestamp: "2026-08-05T11:02:00Z",
+    status: "valid",
+  },
 ]
